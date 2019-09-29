@@ -47,9 +47,21 @@ public class ComplexNumber {
         if (this.b != 0){
             unswer += this.b > 0 ? " + " + this.b + "i" : this.b + "i" ;
         }
-        else{if(a == 0){unswer += 0;}}
-
-
+        else{
+            if(a == 0){
+                unswer += 0;
+            }
+        }
+        return unswer;
+    }
+    
+    public String getRealPart(){
+        String unswer = "Действительная часть: a =  " + this.a;
+        return unswer;
+    }
+    
+    public String getImaginaryPart(){
+        String unswer = "Мнимая часть: b =  " + this.b;
         return unswer;
     }
 
