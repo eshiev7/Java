@@ -55,11 +55,11 @@ public class ComplexNumber {
         return unswer;
     }
     
-    public String getRealPart(){
+    public double getRealPart(){
         return this.a;
     }
     
-    public String getImaginaryPart(){
+    public double getImaginaryPart(){
         return this.b;
     }
 
