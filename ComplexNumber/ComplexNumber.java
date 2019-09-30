@@ -56,13 +56,11 @@ public class ComplexNumber {
     }
     
     public String getRealPart(){
-        String unswer = "Действительная часть: a =  " + this.a;
-        return unswer;
+        return this.a;
     }
     
     public String getImaginaryPart(){
-        String unswer = "Мнимая часть: b =  " + this.b;
-        return unswer;
+        return this.b;
     }
 
 }
