@@ -1,6 +1,6 @@
 package ru.nsu.home;
 
-public class Figure {
+public abstract class Figure {
 
     private int x;
     private  int y;
@@ -10,22 +10,9 @@ public class Figure {
         setY(y);
     }
 
-    public void setX(int x){
-        this.x = x;
+    public double getArea(){
+        return 0;
     }
-
-    public void setY(int y){
-        this.y = y;
-    }
-
-    public double getX(){
-        return this.x;
-    }
-
-    public double getY(){
-        return this.y;
-    }
-
-
+    
 }
 
