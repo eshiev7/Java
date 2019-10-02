@@ -1,18 +1,10 @@
-package ru.nsu.home;
+package ru.nsu.Geometry;
 
 public abstract class Figure {
 
-    private int x;
-    private  int y;
+    abstract void moveX(int x);
+    abstract void moveY(int y);
+    abstract double getArea();
+    abstract String getCoords();
 
-    public Figure(int x, int y){
-        setX(x);
-        setY(y);
-    }
-
-    public double getArea(){
-        return 0;
-    }
-    
 }
-
