@@ -1,4 +1,4 @@
-package Ex1;
+package Lesson4;
 
 public class SC2Player {
 
@@ -33,9 +33,14 @@ public class SC2Player {
     public void setPoints(int points) {
         this.points = points;
     }
+
+    @Override
+    public String toString() {
+        return "SC2Player{" +
+                "nickName='" + nickName + '\'' +
+                ", points=" + points +
+                ", league=" + league +
+                ", race=" + race +
+                '}';
+    }
 }
-
-
-
-
-

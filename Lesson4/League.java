@@ -1,6 +1,6 @@
-package Ex1;
+package Lesson4;
 
-public enum League{
+public enum League {
     PRO,
     DIAMOND,
     PLATINUM,
