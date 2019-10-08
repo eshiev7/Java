@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        SC2Player pl1 = new SC2Player("Bob", League.DIAMOND, Race.TERRAN);
+        SC2Player pl1 = new SC2Player("Bob", League.DIAMOND, Race.ZERG);
         SC2Player pl2 = new SC2Player("Mark", League.SILVER, Race.PROTOSS);
         SC2Player pl3 = new SC2Player("Tony", League.GOLD, Race.ZERG);
         SC2Player pl4 = new SC2Player("Gorks", League.PLATINUM, Race.ZERG);
@@ -19,7 +19,7 @@ public class Main {
         for(int i=0; i<newList.length; i++){
             System.out.println(newList[i]);
         }
-        leagueManager.addPlayer(pl1);
+
         leagueManager.removePlayer(pl1);
         System.out.println();
 
