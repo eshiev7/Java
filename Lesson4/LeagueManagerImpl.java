@@ -16,12 +16,13 @@ public class LeagueManagerImpl implements LeagueManager {
         playerList.add(player);
 
         if(leagueMap.containsKey(player.getLeague())== true){
-            int newCount = leagueMap.get(player.getLeague());
-            newCount ++;
-            leagueMap.put(player.getLeague(),newCount);
+            int newCount1 = leagueMap.get(player.getLeague());
+            newCount1 ++;
+            leagueMap.put(player.getLeague(),newCount1);
         } else {
             leagueMap.put(player.getLeague(),1);
         }
+
         if(raceMap.containsKey(player.getRace())== true){
             int newCount = raceMap.get(player.getRace());
             newCount ++;
@@ -37,6 +38,16 @@ public class LeagueManagerImpl implements LeagueManager {
             if (playerList.get(idx).equals(player)) {
                 playerList.remove(idx);
             }
+        }
+        if(raceMap.containsKey(player.getRace())== true) {
+            int newCount = raceMap.get(player.getRace());
+            newCount--;
+            raceMap.put(player.getRace(), newCount);
+        }
+        if(leagueMap.containsKey(player.getLeague())== true) {
+            int newCount1 = leagueMap.get(player.getLeague());
+            newCount1--;
+            leagueMap.put(player.getLeague(), newCount1);
         }
     }
 
@@ -75,6 +86,8 @@ public class LeagueManagerImpl implements LeagueManager {
     @Override
     public SC2Player[] getPlayers(Race race) {
         SC2Player[] outcome = new SC2Player[raceMap.get(race)];
+        System.out.println(raceMap.get(Race.ZERG));
+        System.out.println(raceMap.get(race));
         int counter1 = 0;
         for (int idx = 0; idx < playerList.size(); idx ++){
             if (playerList.get(idx).getRace().equals(race)) {
@@ -94,3 +107,4 @@ public class LeagueManagerImpl implements LeagueManager {
         }
     }
 }
+
