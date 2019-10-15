@@ -1,93 +1,114 @@
 package Lesson_5;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.LinkedList;
 import java.util.List;
 
-public class ImplAccountManager implements AccountManager{
+import com.opencsv.*;
+
+public class ImplAccountManager implements AccountManager {
+
+    private static List<Person> dP = new LinkedList<Person>();
+    private MailDataBase csv = MailDataBase.getInstance("data.csv");
 
     @Override
-    public void registerNewAccount(String email, String password, Person person){
-        List<String> inp = new ArrayList<>();
-        System.out.println(inp.size());
-        try{
-            Csv.Reader reader = new Csv.Reader(new FileReader("filename1.csv"));
-            inp = reader.readLine();
-            System.out.println(inp);
-            if(inp != null) {
-                for (String h : inp) {
-                    System.out.println(h);
-                }
-            }
-            reader.close();
-        }catch (IOException ex) {
+    public void registerNewAccount(String email, String password, Person person) throws DuplicateAccountException {
+
+        try {
+            CSVWriter writer = new CSVWriter(new FileWriter(csv.dataBase.getName(), true));
+            if (hasAccount(email)) throw new DuplicateAccountException("Данный аккаунт уже зарегестрирован!");
+            String[] record = {email, password, person.getInformation()};
+            writer.writeNext(record);
+            writer.close();
+            dP.add(person);
+
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
-        Csv.Writer writer = new Csv.Writer("filename1.csv");
-        if(inp == null){
-            inp.add(email);
-        }else{
-            inp.add(inp.size(), email);
-        }
-        inp.add(inp.size(), password);
-        inp.add(inp.size(), person.getInformation());
-        for(String h : inp){
-            writer.value(h);
-            //System.out.println(h);
-        }
-        writer.close();
-
-
-
-
-
-
-
-
-
-//        MailDataBase dataBase = MailDataBase.getInstance("dataBase.csv");
-//        System.out.println(dataBase.dataBase);
-//        try(FileWriter fw = new FileWriter(dataBase.dataBase)){
-//            fw.append(email);
-//            fw.append(",");
-//            fw.append(password);
-//            fw.append(",");
-//            fw.append(person.getInformation());
-//            fw.append('\n');
-//
-//        }catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//
-//        try(FileReader fr = new FileReader(dataBase.dataBase)){
-//            while (fr.read() != -1){
-//                System.out.println((char)fr.read());
-//            }
-//        }catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//
-
-
     }
 
     @Override
     public void removeAccount(String email, String password) {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get("data.csv"), StandardCharsets.UTF_8);
+            for (String k : lines) {
+                String g = k.replaceAll("\"", "");
+                String[] g1 = g.split(",");
+                if (g1[0].equalsIgnoreCase(email) && g1[1].equalsIgnoreCase(password)) {
+                    lines.remove(k);
+                    break;
+                }
+            }
+            CSVWriter writer = new CSVWriter(new FileWriter(csv.dataBase.getName(), false));
+            for(String g2 : lines){
+                writer.writeNext(g2.replaceAll("\"", "").split(","));
+            }
+            writer.close();
 
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public boolean hasAccount(String email) {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get("data.csv"), StandardCharsets.UTF_8);
+            for (String g : lines) {
+                g = g.replaceAll("\"", "");
+                String[] g1 = g.split(",");
+                if (g1[0].equalsIgnoreCase(email)) {
+                    return true;
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         return false;
     }
 
     @Override
     public Person getPerson(String email, String password) throws TooManyLoginAttemptsException {
-        return null;
+        if (csv.getCounter() < 4) {
+            try {
+                List<String> lines = Files.readAllLines(Paths.get("data.csv"), StandardCharsets.UTF_8);
+                for (String g : lines) {
+                    g = g.replaceAll("\"", "");
+                    String[] g1 = g.split(",");
+                    if (g1[0].equalsIgnoreCase(email) && g1[1].equalsIgnoreCase(password)) {
+                        for (Person p1 : dP) {
+                            if (p1.getInformation().equalsIgnoreCase(g1[2])) {
+                                return p1;
+                            }
+                        }
+                    }
+                }
+                csv.appCounter();
+                System.out.println(csv.getCounter()
+                );
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            return null;
+        } else {
+            csv.setCounter(0);
+            throw new TooManyLoginAttemptsException("Превышено количество попыток доступа");
+        }
     }
 
     @Override
     public int numOfAccounts() {
-        return 0;
+        int num = 0;
+        try {
+            List<String> lines = Files.readAllLines(Paths.get("data.csv"), StandardCharsets.UTF_8);
+            num = lines.size();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return num;
     }
+
 }

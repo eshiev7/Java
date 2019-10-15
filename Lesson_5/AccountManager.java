@@ -1,10 +1,10 @@
 package Lesson_5;
 
 public interface AccountManager {
-    void registerNewAccount(String email, String password, Person person);
+    void registerNewAccount(String email, String password, Person person) throws DuplicateAccountException;
     void removeAccount(String email, String password);
     boolean hasAccount(String email);
-    Person getPerson(String email, String password) throws TooManyLoginAttemptsException;
+    Person getPerson(String email, String password)throws TooManyLoginAttemptsException;
     int numOfAccounts();
 
 }

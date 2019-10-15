@@ -7,6 +7,7 @@ public final class MailDataBase {
     private static MailDataBase instance;
     public String dataBaseName;
     public File dataBase;
+    private static int counter = 0;
 
     private MailDataBase(String dataBaseName) {
         dataBase = new File(dataBaseName);
@@ -18,16 +19,15 @@ public final class MailDataBase {
         }
         return instance;
     }
-}
 
-//
-//    private static MailDataBase ourInstance = new MailDataBase(String dataBaseName );
-//
-//    public static MailDataBase getInstance() {
-//        return ourInstance;
-//    }
-//
-//    private MailDataBase(String dataBaseName) {
-//        File dataBase = new File("DataBase.csv");
-//    }
-//}
+    public int getCounter() {
+        return counter;
+    }
+
+    public void appCounter() {
+        counter++;
+    }
+    public void setCounter(int counter1) {
+        counter = counter1;
+    }
+}
