@@ -87,8 +87,6 @@ public class ImplAccountManager implements AccountManager {
                     }
                 }
                 csv.appCounter();
-                System.out.println(csv.getCounter()
-                );
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

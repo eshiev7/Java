@@ -12,11 +12,13 @@ public class Main {
 	bob.registerNewAccount("aleksandrov@mail.ru", "18273645", p3);
 	System.out.println(bob.numOfAccounts());
 	bob.removeAccount("aleksandrov@mail.ru","18273645");
+	bob.removeAccount("pavlov@mail.ru", "87654321");
 	System.out.println(bob.numOfAccounts());
 	System.out.println(bob.hasAccount("aleksandrov@mail.ru"));
-	System.out.println(bob.hasAccount("ivanov@mail.ru"));
+	System.out.println(bob.hasAccount("pavlov@mail.ru"));
+
 	System.out.println(bob.getPerson("ivanov@mail.ru", "12345678"));
-		System.out.println(bob.getPerson("aleksandrov@mail.ru","18273645"));
+	System.out.println(bob.getPerson("aleksandrov@mail.ru","18273645"));
 //	System.out.println(bob.getPerson("ivanov@mail.ru", "123545688"));
 //	System.out.println(bob.getPerson("ivanov@mail.ru", "12345688"));
 //	System.out.println(bob.getPerson("ivanov@mail.ru", "123545688"));
