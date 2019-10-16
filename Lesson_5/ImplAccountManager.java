@@ -11,7 +11,6 @@ import com.opencsv.*;
 
 public class ImplAccountManager implements AccountManager {
 
-    private static List<Person> dP = new LinkedList<Person>();
     private static MailDataBase csv;
 
     static {
@@ -31,7 +30,6 @@ public class ImplAccountManager implements AccountManager {
             String[] record = {email, password, person.getInformation()};
             writer.writeNext(record);
             writer.close();
-            dP.add(person);
 
         } catch (IOException ex) {
             ex.printStackTrace();
