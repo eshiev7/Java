@@ -95,6 +95,7 @@ public class ImplAccountManager implements AccountManager {
                             String[] g1 = g.split(",");
                             if (g1[0].equalsIgnoreCase(email) && g1[1].equalsIgnoreCase(password)) {
                                 String[] g2 = g1[2].split(" ");
+                                csv.setCounter(0);
                                 return new Person(g2[0], g2[1], g2[2], g2[3]);
                             }
                         }
